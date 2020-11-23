@@ -16,6 +16,16 @@
         <div class="heading">
             <p class="title">Login to Account</p>
         </div>
+        <% if(user_msg){ %>
+            <div>
+                <p class="display-msg">User does not exist!</p>
+            </div>
+        <% } %>
+        <% if(password_msg){ %>
+            <div>
+                <p class="display-msg">Wrong Password!</p>
+            </div>
+        <% } %>
         <div>
             <form action="/auth" method="POST">
                 <input type="email" name="email" placeholder="Enter your Email" required>
