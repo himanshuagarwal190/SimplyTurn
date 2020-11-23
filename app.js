@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const User = require('./utils/models')
-const {validateUser, isLoggedIn} = require('./utils/validateUser')
+const {validateUser, isLoggedIn} = require('./utils/validateMiddleware')
 
 //Intialization
 const app = express()
