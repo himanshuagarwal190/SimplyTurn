@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>SimplyTurn</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-link">SimplyTurn</a>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="heading">
+            <p class="title">Teacher Sign Up</p>
+        </div>
+        <% if(password_msg){ %>
+            <div>
+                <p class="signup-msg">Passwords do not match!</p>
+            </div>
+        <% } %>
+        <div>
+        </div>
+        <% if(email_msg){ %>
+            <div>
+                <p class="signup-msg">Email already exists!</p>
+            </div>
+        <% } %>
+        <div>
+            <form action="/signup" method="POST">
+                <input type="hidden" name="role" value="Teacher">
+                <input type="name" name="name" placeholder="Enter your Name" required>
+                <input type="email" name="email" placeholder="Enter your Email" required>
+                <input type="password" name="password" placeholder="Enter your Password" required>
+                <input type="password" name="confirm_password" placeholder="Renter your Password" required>
+                <input type="submit" value="Sign Up" class="black-btn">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

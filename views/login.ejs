@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>SimplyTurn</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-link">SimplyTurn</a>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="heading">
+            <p class="title">Login to Account</p>
+        </div>
+        <div>
+            <form action="/auth" method="POST">
+                <input type="email" name="email" placeholder="Enter your Email" required>
+                <input type="password" name="password" placeholder="Enter your Password" required>
+                <input type="submit" value="Log In" class="black-btn">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

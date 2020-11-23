@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* -------------------- nav -------------------- */
+
+nav {
+    width: 100vw;
+    height: 8vh;
+    background-color: rgb(32, 32, 32);
+}
+
+.nav-container, .container {
+    margin: 0 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link, .nav-link:hover {
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+    font-weight: 600;
+    padding: auto;
+    letter-spacing: 1px;
+}
+
+ul {
+    display: flex;
+}
+
+ul li {
+    color: white;
+    list-style: none;
+    margin: auto 20px;
+}
+
+ul li .nav-btn {
+    color: white;
+    text-decoration: none;
+    font-size: x-large;
+    font-weight: 100;
+    line-height: 35px;
+    letter-spacing: 1px;
+}
+
+/* -------------------- main -------------------- */
+
+.bg-img {
+    background-image: url('../images/thomas-lefebvre-gp8BLyaTaA0-unsplash.jpg');
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    flex-direction: column;
+}
+
+.heading {
+    margin: 5% auto;
+}
+
+.title, .subtitle {
+    text-align: center;
+    font-size: 4em;
+    color: black;
+    font-weight: 400;
+}
+
+.subtitle {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form input {
+    width: 400px;
+    height: 40px;
+    text-indent: 10px;
+    margin: 10px;
+}
+
+.black-btn, .black-btn:hover {
+    background-color: rgb(32, 32, 32);
+    color: white;
+    font-weight: 400;
+    font-size: large;
+    border: 1px solid rgb(32, 32, 32);
+    text-decoration: none;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.black-btn:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.round-pad-btn {
+    padding:10px;
+    border-radius: 10px;
+}
+
+.signup-msg {
+    background-color: red;
+    color: white;
+    font-size: medium;
+    padding: 5px;
+}
