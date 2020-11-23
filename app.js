@@ -33,13 +33,16 @@ app.get('/login', isLoggedIn, (req, res) =>{
 
 app.post('/auth', (req, res) =>{
     User.findOne({email:req.body.email}, (err, data) =>{
+        // If email does not exists
         if(data === null) {
             res.redirect('login/?user_msg=true&password_msg=false')
         }
+        // Database error
         else if(err) {
             console.log(err)
             res.redirect('/')
         }
+        // If email exists
         else {
             let password = sha256(req.body.password)
             // If password matches
@@ -70,7 +73,7 @@ app.get('/signup', isLoggedIn, (req, res) =>{
         res.render('teacherSignUp', {password_msg: false, email_msg: false})
     }
     else {
-        console.log('Wrong option')
+        console.log('Wrong signup option')
         res.redirect('/')
     }
 })
@@ -90,6 +93,7 @@ app.post('/signup', isLoggedIn, async (req, res) =>{
             res.render('teacherSignUp', {password_msg: true, email_msg: false})
         }
     }
+    // Check if email already exist in database
     else if(await User.exists({email: req.body.email})) {
         if(user.role === 'Teacher') {
             res.render('teacherSignUp', {password_msg: false, email_msg: true})
@@ -98,6 +102,7 @@ app.post('/signup', isLoggedIn, async (req, res) =>{
             res.render('teacherSignUp', {password_msg: false, email_msg: true})
         }
     }
+    // Create user in the database
     else {
         User.create(user, (err, data) =>{
             if(err){
