@@ -112,9 +112,51 @@ form input {
     border-radius: 10px;
 }
 
+a[href="/newPost"] {
+    align-self: flex-end;
+}
+
 .display-msg {
     background-color: red;
     color: white;
     font-size: medium;
     padding: 5px;
+}
+
+.links {
+    margin: 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.border-t {
+    border-top: 1px solid rgb(110, 108, 108);
+    border-left: 1px solid rgb(110, 108, 108);
+    border-right: 1px solid rgb(110, 108, 108);
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    padding: 5px;
+}
+
+.border-b {
+    border-bottom: 1px solid rgb(110, 108, 108);
+    border-left: 1px solid rgb(110, 108, 108);
+    border-right: 1px solid rgb(110, 108, 108);
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    padding: 5px;
+}
+
+.post {
+    margin-bottom: 60px;
+    width: 800px;
+    overflow: auto;
+}
+
+#editor {
+    width: 1000px;
+    height: 60vh;
+    border: 1px solid black;
 }

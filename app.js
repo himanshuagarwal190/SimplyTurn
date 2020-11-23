@@ -46,11 +46,12 @@ app.post('/auth', (req, res) =>{
         else {
             let password = sha256(req.body.password)
             // If password matches
-            console.log(data)
             if(password === data.password){
                 let token = jwt.sign({name: data.name, role: data.role}, jwt_secret)
                 res.cookie('token', token, {httpOnly: true});
+                res.cookie('uuid', data._id)
                 res.cookie('name', data.name);
+                res.cookie('role', data.role)
                 res.redirect('/home')
             }
             // If password is incorrect
@@ -118,12 +119,60 @@ app.post('/signup', isLoggedIn, async (req, res) =>{
 })
 
 app.get('/home', validateUser, (req, res) =>{
-    res.render('home', {name:req.cookies.name})
+    let posts = []
+    if(req.cookies.role === 'Student'){
+        User.findById(req.cookies.uuid, (err, data) =>{
+            if(err){
+                console.log(error)
+                res.redirect('/')
+            }
+            else {
+                posts.push(...data.posts)
+                res.render('homeStudent', {name:req.cookies.name, posts: posts})
+            }
+        })
+    }
+    else if(req.cookies.role === 'Teacher'){
+        User.find({role: 'Student'}, (err, data) =>{
+            if(err){
+                console.log(error)
+                res.redirect('/')
+            }
+            else {
+                data.forEach(user => {
+                    posts.push(user.posts)
+                });
+                res.render('homeStudent', {name:req.cookies.name, posts: posts})
+            }
+        })
+    }
+})
+
+app.get('/newPost', (req, res) =>{
+    res.render('newPost', {name:req.cookies.name})
+})
+
+app.post('/newPost', (req, res) =>{
+    let uuid = req.cookies.uuid
+    let post = req.body.post
+    User.findById(uuid, (err, data) =>{
+        if(err){
+            console.log(err)
+            res.redirect('/')
+        }
+        else {
+            data.posts.push({content: post})
+            data.save()
+            res.redirect('/home')
+        }
+    })
 })
 
 app.get('/logout', (req, res) =>{
     res.clearCookie('name')
     res.clearCookie('token')
+    res.clearCookie('uuid')
+    res.clearCookie('role')
     res.redirect('/')
 })
 

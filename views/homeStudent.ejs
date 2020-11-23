@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <title>SimplyTurn</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-link">SimplyTurn</a>
+            <ul>
+                <li><p class="nav-btn"><%= name %></p></li>
+                <li><a href="/logout" class="nav-btn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="heading">
+            <p class="title">Welcome <%= name %> to SimplyTurn</p>
+        </div>
+        <a href="/newPost" class="black-btn round-pad-btn">+ New Post</a>
+
+        <div class="posts">
+            <% posts.forEach(post =>{ %>
+                <div class="post">
+                    <p class="content border-t">
+                        <%= post.content %>
+                    </p>
+                    <p class="links border-b">
+                        <a href="/edit/<%= post._id %>" class="black-btn round-pad-btn">Edit</a>
+                    </p>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+    <script>
+        let contents = document.querySelectorAll('.content')
+        contents.forEach(content =>{
+            content.innerHTML = content.textContent
+        })
+    </script>
+</body>
+</html>

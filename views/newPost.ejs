@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <title>SimplyTurn</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-link">SimplyTurn</a>
+            <ul>
+                <li><p class="nav-btn"><%= name %></p></li>
+                <li><a href="/logout" class="nav-btn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        <div id="editor">
+            <p>Hello World!</p>
+            <p>Some initial <strong>bold</strong> text</p>
+            <p><br></p>
+        </div>
+        <form action="/newPost" method="POST">
+            <input type="hidden" name="post" value="" id="post">
+            <input type="Submit" value="Save" class="black-btn">
+        </form>
+    </main>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+          theme: 'snow'
+        });
+        document.querySelector('.ql-editor').addEventListener('keyup', () =>{
+            document.querySelector('#post').value = document.querySelector('.ql-editor').innerHTML
+        })
+      </script>
+</body>
+</html>
