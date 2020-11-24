@@ -15,11 +15,11 @@ Email: vinay@gmail.com
 Password: vinay
 
 ### Student 2
-Name: Aditya Shejwal
-Email: aditya@gmail.com
-Password: aditya
+> Name: Aditya Shejwal
+> Email: aditya@gmail.com
+> Password: aditya
 
 ### Teacher
-Name: Himanshu Agarwal
-Email: himanshu@gmail.com
-Password: himanshu
+> Name: Himanshu Agarwal
+> Email: himanshu@gmail.com
+> Password: himanshu
