@@ -9,14 +9,15 @@
 * Student has access of their own posts
 
 ## Login Credentials
-### Students
-1. Name: Vinay Patil
-<p> Email: vinay@gmail.com </p>
-<p> Password: vinay </p>
+### Student 1
+Name: Vinay Patil
+Email: vinay@gmail.com
+Password: vinay
 
-2. Name: Aditya Shejwal
-<p> Email: aditya@gmail.com </p>
-<p> Password: aditya </p>
+### Student 2
+Name: Aditya Shejwal
+Email: aditya@gmail.com
+Password: aditya
 
 ### Teacher
 Name: Himanshu Agarwal
