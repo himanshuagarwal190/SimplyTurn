@@ -2,7 +2,7 @@
 
 ## Features
 * Student login and signup
-* Teacher login and sign up
+* Teacher login and signup
 * Student can add, view, edit, delete posts
 * Teacher can add, view, edit, delete posts of students
 * Teacher has access of all students post
