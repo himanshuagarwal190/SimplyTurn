@@ -23,3 +23,5 @@ Password: aditya
 Name: Himanshu Agarwal  
 Email: himanshu@gmail.com  
 Password: himanshu  
+
+Link for Hosted App: https://student-teacher-posts.herokuapp.com
