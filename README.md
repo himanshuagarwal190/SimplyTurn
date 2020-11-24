@@ -10,9 +10,9 @@
 
 ## Login Credentials
 ### Student 1
-Name: Vinay Patil
-Email: vinay@gmail.com
-Password: vinay
+Name: Vinay Patil  
+Email: vinay@gmail.com  
+Password: vinay  
 
 ### Student 2
 Name: Aditya Shejwal  
