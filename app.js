@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const User = require('./utils/models')
+const {User, Post} = require('./utils/models')
 const {validateUser, isLoggedIn} = require('./utils/validateMiddleware')
 
 //Intialization
@@ -17,20 +17,23 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
 mongoose.set('useUnifiedTopology', true)
-mongoose.connect(process.env.mongodb, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.mongodb, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 let port = process.env.PORT || 3000
 const jwt_secret = process.env.jwt_secret
 
-app.get('/', (req, res) =>{
+app.get('/', isLoggedIn, (req, res) =>{
     res.render('index')
 })
 
+
+// Login Route
 app.get('/login', isLoggedIn, (req, res) =>{
     let user_msg = (req.query.user_msg === 'true')
     let password_msg = (req.query.password_msg === 'true')
     res.render('login', {user_msg:user_msg, password_msg:password_msg})
 })
 
+// Auth route to authouize user
 app.post('/auth', (req, res) =>{
     User.findOne({email:req.body.email}, (err, data) =>{
         // If email does not exists
@@ -62,10 +65,12 @@ app.post('/auth', (req, res) =>{
     })
 })
 
+// SignupChoice Route
 app.get('/signupChoice', isLoggedIn, (req, res) =>{
     res.render('teacherOrStudent')
 })
 
+// Signup Route (GET)
 app.get('/signup', isLoggedIn, (req, res) =>{
     if(req.query.option === 'Student') {
         res.render('studentSignUp', {password_msg: false, email_msg: false})
@@ -79,6 +84,7 @@ app.get('/signup', isLoggedIn, (req, res) =>{
     }
 })
 
+// Signup Route (Post)
 app.post('/signup', isLoggedIn, async (req, res) =>{
     let user = {name: req.body.name,
                 email: req.body.email,
@@ -118,56 +124,115 @@ app.post('/signup', isLoggedIn, async (req, res) =>{
     }
 })
 
+// Home route where posts will be displayed
 app.get('/home', validateUser, (req, res) =>{
     let posts = []
     if(req.cookies.role === 'Student'){
-        User.findById(req.cookies.uuid, (err, data) =>{
+        User.findById(req.cookies.uuid).populate('posts').exec((err, data) =>{
             if(err){
-                console.log(error)
+                console.log(err)
                 res.redirect('/')
             }
-            else {
-                posts.push(...data.posts)
-                res.render('homeStudent', {name:req.cookies.name, posts: posts})
+            else{
+                res.render('home', {name:req.cookies.name, posts: data.posts, edit: true})
             }
         })
     }
     else if(req.cookies.role === 'Teacher'){
-        User.find({role: 'Student'}, (err, data) =>{
+        User.find({role: 'Student'}).populate('posts').exec((err, data) =>{
             if(err){
-                console.log(error)
+                console.log(err)
                 res.redirect('/')
             }
-            else {
-                data.forEach(user => {
-                    posts.push(user.posts)
-                });
-                res.render('homeStudent', {name:req.cookies.name, posts: posts})
+            else{
+                let posts = []
+                data.forEach(user =>{
+                    posts.push(...user.posts)
+                })
+                res.render('home', {name:req.cookies.name, posts: posts, edit:false})
             }
         })
     }
 })
 
+// For adding new Post (GET)
 app.get('/newPost', (req, res) =>{
     res.render('newPost', {name:req.cookies.name})
 })
 
+// For adding new Post (POST)
 app.post('/newPost', (req, res) =>{
     let uuid = req.cookies.uuid
     let post = req.body.post
-    User.findById(uuid, (err, data) =>{
+    User.findById(uuid, (err, userdata) =>{
         if(err){
             console.log(err)
             res.redirect('/')
         }
         else {
-            data.posts.push({content: post})
-            data.save()
+            let email = userdata.email
+            Post.create({content: post, email: email}, (err, postdata) =>{
+                if(err){
+                    console.log(err)
+                    res.redirect('/')
+                }
+                else{
+                    userdata.posts.push(postdata)
+                    userdata.save((err, done) =>{
+                        if(err){
+                            console.log(err)
+                            res.redirect('/')
+                        }
+                        else{
+                            res.redirect('/home')
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
+// For Editing Post (GET)
+app.get('/edit/:id', (req, res) =>{
+    Post.findById(req.params.id, (err, data) =>{
+        if(err){
+            console.log(err)
+            res.redirect('/')
+        }
+        else {
+            res.render('edit', {name: req.cookies.name, data: data})
+        }
+    })
+})
+
+// For Editing Post (POST)
+app.post('/edit', (req, res) =>{
+    Post.findByIdAndUpdate(req.body.postId,{content: req.body.postUpdate},(err, data) => {
+        if(err) {
+            console.log(err)
+            res.redirect('/')
+        }
+        else {
             res.redirect('/home')
         }
     })
 })
 
+// For deleting post
+app.post('/delete', (req, res) =>{
+    Post.findByIdAndRemove(req.body.postId, (err, data) =>{
+        if(err){
+            console.log(err)
+            res.redirect('/')
+        }
+        else {
+            res.redirect('/home')
+        }
+    })
+})
+
+// Logout route
 app.get('/logout', (req, res) =>{
     res.clearCookie('name')
     res.clearCookie('token')
@@ -176,6 +241,7 @@ app.get('/logout', (req, res) =>{
     res.redirect('/')
 })
 
+// Start Server
 app.listen(port, () =>{
     console.log(`Server running on port ${port}`)
 })

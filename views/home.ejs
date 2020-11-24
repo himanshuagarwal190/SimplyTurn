@@ -21,11 +21,14 @@
         <div class="heading">
             <p class="title">Welcome <%= name %> to SimplyTurn</p>
         </div>
-        <a href="/newPost" class="black-btn round-pad-btn">+ New Post</a>
+        <% if(edit){ %>
+            <a href="/newPost" class="black-btn round-pad-btn">+ New Post</a>
+        <% } %>
 
         <div class="posts">
             <% posts.forEach(post =>{ %>
                 <div class="post">
+                    <p class="border-t"> By - <%= post.email %></p>
                     <p class="content border-t">
                         <%= post.content %>
                     </p>
@@ -36,11 +39,6 @@
             <% }) %>
         </div>
     </main>
-    <script>
-        let contents = document.querySelectorAll('.content')
-        contents.forEach(content =>{
-            content.innerHTML = content.textContent
-        })
-    </script>
+    <script src="/js/home.js"></script>
 </body>
 </html>

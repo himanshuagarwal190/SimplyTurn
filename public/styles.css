@@ -92,7 +92,7 @@ form input {
     margin: 10px;
 }
 
-.black-btn, .black-btn:hover {
+.black-btn, .black-btn:hover, .red-btn, .green-btn {
     background-color: rgb(32, 32, 32);
     color: white;
     font-weight: 400;
@@ -105,6 +105,14 @@ form input {
 
 .black-btn:hover {
     background-color: rgb(50, 50, 50);
+}
+
+.red-btn {
+    background-color: red;
+}
+
+.green-btn {
+    background-color: green;
 }
 
 .round-pad-btn {
