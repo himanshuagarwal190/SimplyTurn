@@ -141,7 +141,6 @@ a[href="/newPost"] {
     border-top: 1px solid rgb(110, 108, 108);
     border-left: 1px solid rgb(110, 108, 108);
     border-right: 1px solid rgb(110, 108, 108);
-    text-align: center;
     margin: auto;
     width: 100%;
     padding: 5px;
@@ -151,10 +150,13 @@ a[href="/newPost"] {
     border-bottom: 1px solid rgb(110, 108, 108);
     border-left: 1px solid rgb(110, 108, 108);
     border-right: 1px solid rgb(110, 108, 108);
-    text-align: center;
     margin: auto;
     width: 100%;
     padding: 5px;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .post {
