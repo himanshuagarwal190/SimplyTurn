@@ -10,15 +10,13 @@
 
 ## Login Credentials
 ### Students
-1. 
-Name: Vinay Patil
-Email: vinay@gmail.com
-Password: vinay
+1. Name: Vinay Patil
+<p> Email: vinay@gmail.com </p>
+<p> Password: vinay </p>
 
-2. 
-Name: Aditya Shejwal
-Email: aditya@gmail.com
-Password: aditya
+2. Name: Aditya Shejwal
+<p> Email: aditya@gmail.com </p>
+<p> Password: aditya </p>
 
 ### Teacher
 Name: Himanshu Agarwal
